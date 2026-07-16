@@ -1,0 +1,54 @@
+<svg viewBox="0 0 200 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- branch -->
+  <path d="M10 30 Q100 14 190 32" stroke="#C8A578" stroke-width="9" fill="none" stroke-linecap="round"/>
+  <path d="M10 30 Q100 14 190 32" stroke="#2B2B2B" stroke-width="1.2" fill="none" opacity="0.35"/>
+
+  <!-- leaves -->
+  <path d="M35 24 q-10 -12 -22 -6 q6 12 22 6 Z" fill="#B7C4A8" stroke="#2B2B2B" stroke-width="1.5" stroke-linejoin="round"/>
+  <path d="M170 26 q10 -12 22 -4 q-8 12 -22 4 Z" fill="#B7C4A8" stroke="#2B2B2B" stroke-width="1.5" stroke-linejoin="round"/>
+
+  <!-- arms wrapping branch -->
+  <path d="M72 55 Q60 34 82 24 Q92 20 96 30" stroke="#B99A72" stroke-width="16" fill="none" stroke-linecap="round"/>
+  <path d="M72 55 Q60 34 82 24 Q92 20 96 30" stroke="#2B2B2B" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+  <path d="M128 55 Q140 34 118 24 Q108 20 104 30" stroke="#B99A72" stroke-width="16" fill="none" stroke-linecap="round"/>
+  <path d="M128 55 Q140 34 118 24 Q108 20 104 30" stroke="#2B2B2B" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+
+  <!-- claws -->
+  <path d="M92 27 l-3 -5 M96 24 l0 -6 M100 25 l3 -5" stroke="#2B2B2B" stroke-width="1.6" stroke-linecap="round"/>
+
+  <!-- body -->
+  <ellipse cx="100" cy="118" rx="46" ry="56" fill="#C9A67E" stroke="#2B2B2B" stroke-width="2.5"/>
+
+  <!-- face patch -->
+  <ellipse cx="100" cy="105" rx="30" ry="26" fill="#F0E2C9" stroke="#2B2B2B" stroke-width="2.2"/>
+
+  <!-- eye patches -->
+  <ellipse cx="86" cy="100" rx="9" ry="7" fill="#B99A72" opacity="0.55"/>
+  <ellipse cx="114" cy="100" rx="9" ry="7" fill="#B99A72" opacity="0.55"/>
+
+  <!-- sleepy closed eyes -->
+  <path d="M80 100 q6 5 12 0" stroke="#2B2B2B" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <path d="M108 100 q6 5 12 0" stroke="#2B2B2B" stroke-width="2" fill="none" stroke-linecap="round"/>
+
+  <!-- nose & sleepy smile -->
+  <ellipse cx="100" cy="113" rx="5" ry="3.6" fill="#2B2B2B"/>
+  <path d="M100 117 Q92 126 84 120" stroke="#2B2B2B" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+  <path d="M100 117 Q108 126 116 120" stroke="#2B2B2B" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+
+  <!-- little zzz -->
+  <text x="138" y="70" font-family="serif" font-size="14" fill="#2B2B2B" opacity="0.55">z</text>
+  <text x="150" y="58" font-family="serif" font-size="10" fill="#2B2B2B" opacity="0.45">z</text>
+
+  <!-- sage fur flecks -->
+  <circle cx="72" cy="140" r="3" fill="#B7C4A8" opacity="0.8"/>
+  <circle cx="130" cy="150" r="2.4" fill="#B7C4A8" opacity="0.8"/>
+  <circle cx="118" cy="165" r="2" fill="#B7C4A8" opacity="0.7"/>
+
+  <!-- dangling legs -->
+  <path d="M76 165 Q68 190 76 208" stroke="#C9A67E" stroke-width="14" fill="none" stroke-linecap="round"/>
+  <path d="M76 165 Q68 190 76 208" stroke="#2B2B2B" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+  <path d="M124 165 Q132 190 124 208" stroke="#C9A67E" stroke-width="14" fill="none" stroke-linecap="round"/>
+  <path d="M124 165 Q132 190 124 208" stroke="#2B2B2B" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+  <path d="M70 207 l-3 -5 M76 209 l0 -6 M82 207 l3 -5" stroke="#2B2B2B" stroke-width="1.4" stroke-linecap="round"/>
+  <path d="M118 207 l-3 -5 M124 209 l0 -6 M130 207 l3 -5" stroke="#2B2B2B" stroke-width="1.4" stroke-linecap="round"/>
+</svg>
