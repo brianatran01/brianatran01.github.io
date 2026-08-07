@@ -1,114 +1,901 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Briana Tran — Portfolio</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Briana Tran — Solutions Engineer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --dark:    #1E1B19;
+            --dark2:   #272220;
+            --bg:      #FAFAF8;
+            --bg2:     #F2EDE6;
+            --rose:    #C9856A;
+            --sage:    #8FA492;
+            --text:    #2A2520;
+            --muted:   #8A7F78;
+            --border:  #E5DDD4;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            color: var(--text);
+            background: var(--bg);
+            overflow-x: hidden;
+        }
+
+        /* ─── NAV ─── */
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 100;
+            padding: 1.25rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.3s, backdrop-filter 0.3s;
+        }
+
+        nav.scrolled {
+            background: rgba(30, 27, 25, 0.88);
+            backdrop-filter: blur(16px);
+        }
+
+        .nav-logo {
+            font-family: 'Syne', sans-serif;
+            font-weight: 800;
+            font-size: 1.05rem;
+            color: white;
+            text-decoration: none;
+            letter-spacing: -0.02em;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.25rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: rgba(255,255,255,0.55);
+            text-decoration: none;
+            font-size: 0.875rem;
+            transition: color 0.2s;
+        }
+        .nav-links a:hover { color: white; }
+
+        /* ─── HERO ─── */
+        .hero {
+            min-height: 100vh;
+            background: var(--dark);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 8rem 3rem 5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-blob {
+            position: absolute;
+            border-radius: 50%;
+            pointer-events: none;
+            filter: blur(90px);
+        }
+        .hero-blob-1 {
+            top: -100px; right: -50px;
+            width: 500px; height: 500px;
+            background: rgba(143, 164, 146, 0.12);
+        }
+        .hero-blob-2 {
+            bottom: 0; left: 30%;
+            width: 420px; height: 420px;
+            background: rgba(201, 133, 106, 0.1);
+        }
+
+        .hero-eyebrow {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--rose);
+            letter-spacing: 0.05em;
+            margin-bottom: 1.75rem;
+            opacity: 0.9;
+        }
+
+        .hero-headline {
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(3.25rem, 7.5vw, 6.5rem);
+            font-weight: 800;
+            line-height: 1.03;
+            color: white;
+            max-width: 950px;
+            margin-bottom: 1.75rem;
+            letter-spacing: -0.04em;
+        }
+
+        .hero-headline .rose   { color: var(--rose); }
+        .hero-headline .sage   { color: var(--sage); }
+
+        .hero-sub {
+            font-size: 1.1rem;
+            color: rgba(255,255,255,0.5);
+            max-width: 560px;
+            line-height: 1.8;
+            margin-bottom: 2.75rem;
+            font-weight: 300;
+        }
+
+        .hero-ctas {
+            display: flex;
+            gap: 0.875rem;
+            margin-bottom: 4rem;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background: var(--rose);
+            color: white;
+            padding: 0.875rem 1.875rem;
+            border-radius: 100px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: opacity 0.2s, transform 0.2s;
+            display: inline-block;
+        }
+        .btn-primary:hover { opacity: 0.88; transform: translateY(-2px); }
+
+        .btn-ghost {
+            color: rgba(255,255,255,0.7);
+            padding: 0.875rem 1.875rem;
+            border-radius: 100px;
+            text-decoration: none;
+            font-weight: 400;
+            font-size: 0.9rem;
+            border: 1px solid rgba(255,255,255,0.15);
+            transition: background 0.2s, border-color 0.2s, color 0.2s;
+            display: inline-block;
+        }
+        .btn-ghost:hover {
+            background: rgba(255,255,255,0.07);
+            border-color: rgba(255,255,255,0.28);
+            color: white;
+        }
+
+        .hero-badges {
+            display: flex;
+            gap: 0.625rem;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.73rem;
+            padding: 0.375rem 0.875rem;
+            border-radius: 100px;
+            border: 1px solid rgba(255,255,255,0.12);
+            color: rgba(255,255,255,0.42);
+            letter-spacing: 0.02em;
+        }
+
+        /* ─── TICKER ─── */
+        .ticker {
+            background: var(--dark2);
+            padding: 1rem 0;
+            overflow: hidden;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .ticker-track {
+            display: flex;
+            animation: tick 38s linear infinite;
+            white-space: nowrap;
+        }
+
+        .ticker-item {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.74rem;
+            color: rgba(255,255,255,0.22);
+            letter-spacing: 0.05em;
+            padding: 0 1.75rem;
+        }
+        .ticker-item .acc { color: var(--sage); opacity: 0.7; margin-right: 0.3rem; }
+
+        @keyframes tick {
+            from { transform: translateX(0); }
+            to   { transform: translateX(-50%); }
+        }
+
+        /* ─── SHARED ─── */
+        .section-inner { max-width: 1140px; margin: 0 auto; }
+
+        .section-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.74rem;
+            letter-spacing: 0.08em;
+            color: var(--muted);
+            margin-bottom: 0.875rem;
+        }
+
+        .section-headline {
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(2rem, 4vw, 3.25rem);
+            font-weight: 800;
+            line-height: 1.08;
+            letter-spacing: -0.035em;
+        }
+
+        /* ─── ABOUT ─── */
+        #about {
+            padding: 7rem 3rem;
+            background: var(--bg);
+        }
+
+        .about-intro {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: start;
+            margin-bottom: 3.5rem;
+        }
+
+        .about-desc {
+            font-size: 1.05rem;
+            line-height: 1.85;
+            color: var(--muted);
+            margin-top: 1.5rem;
+        }
+        .about-desc strong { color: var(--text); font-weight: 500; }
+
+        .stat-group {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-top: 0.5rem;
+        }
+
+        .stat-card {
+            padding: 1.25rem 1.5rem;
+            border-radius: 14px;
+            border: 1px solid var(--border);
+            background: white;
+        }
+
+        .stat-num {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.875rem;
+            font-weight: 800;
+            letter-spacing: -0.04em;
+            line-height: 1;
+            margin-bottom: 0.3rem;
+        }
+        .stat-num.rose { color: var(--rose); }
+        .stat-num.sage { color: var(--sage); }
+        .stat-num.warm { color: var(--dark); }
+
+        .stat-text {
+            font-size: 0.82rem;
+            color: var(--muted);
+            line-height: 1.5;
+        }
+
+        /* ─── BOTH CARDS ─── */
+        .both-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.125rem;
+        }
+
+        .both-card {
+            padding: 2.25rem;
+            border-radius: 18px;
+        }
+
+        .both-card.technical {
+            background: var(--dark);
+            color: white;
+        }
+
+        .both-card.customer {
+            background: var(--bg2);
+            color: var(--text);
+            border: 1px solid var(--border);
+        }
+
+        .card-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            opacity: 0.4;
+        }
+
+        .both-card h3 {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.45rem;
+            font-weight: 700;
+            margin-bottom: 0.875rem;
+            letter-spacing: -0.02em;
+        }
+
+        .both-card.technical h3 { color: var(--sage); }
+        .both-card.customer  h3 { color: var(--rose); }
+
+        .both-card p {
+            font-size: 0.9rem;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            opacity: 0.72;
+        }
+
+        .tag-row { display: flex; flex-wrap: wrap; gap: 0.45rem; }
+
+        .tag {
+            font-size: 0.75rem;
+            padding: 0.3rem 0.75rem;
+            border-radius: 100px;
+            font-weight: 500;
+        }
+
+        .technical .tag {
+            background: rgba(143, 164, 146, 0.18);
+            color: var(--sage);
+        }
+
+        .customer .tag {
+            background: rgba(201, 133, 106, 0.12);
+            color: var(--rose);
+        }
+
+        .dog-moment {
+            margin-top: 1.25rem;
+            display: flex;
+            align-items: center;
+            gap: 1.25rem;
+        }
+
+        .dog-moment img {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--border);
+            flex-shrink: 0;
+        }
+
+        .dog-caption {
+            font-size: 0.82rem;
+            color: var(--muted);
+            font-style: italic;
+        }
+
+        .fun-note {
+            margin-top: 1.25rem;
+            padding: 1.5rem 1.875rem;
+            background: var(--bg2);
+            border-radius: 14px;
+            border: 1px solid var(--border);
+            font-size: 0.875rem;
+            line-height: 1.8;
+            color: var(--muted);
+        }
+        .fun-note strong { color: var(--text); font-weight: 500; }
+
+        /* ─── WORK ─── */
+        #work {
+            padding: 7rem 3rem;
+            background: var(--dark);
+        }
+
+        .work-head-label { color: rgba(255,255,255,0.28); }
+        .work-head-h2 { color: white; }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.125rem;
+            margin-top: 3rem;
+        }
+
+        .project-card {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.07);
+            border-radius: 18px;
+            padding: 2.25rem;
+            text-decoration: none;
+            color: white;
+            display: block;
+            transition: background 0.22s, border-color 0.22s, transform 0.22s;
+        }
+        .project-card:hover {
+            background: rgba(255,255,255,0.07);
+            border-color: rgba(255,255,255,0.13);
+            transform: translateY(-4px);
+        }
+
+        .project-card.featured {
+            grid-column: 1 / -1;
+            background: rgba(143, 164, 146, 0.07);
+            border-color: rgba(143, 164, 146, 0.2);
+        }
+
+        .featured-flag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            color: var(--sage);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            opacity: 0.85;
+        }
+
+        .project-card h3 {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            letter-spacing: -0.02em;
+        }
+        .project-card.featured h3 { font-size: 1.6rem; }
+
+        .project-card p {
+            font-size: 0.875rem;
+            line-height: 1.8;
+            color: rgba(255,255,255,0.5);
+            margin-bottom: 1.5rem;
+        }
+
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.45rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .project-tag {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.69rem;
+            padding: 0.28rem 0.65rem;
+            border-radius: 6px;
+            background: rgba(255,255,255,0.07);
+            color: rgba(255,255,255,0.38);
+        }
+
+        .project-link {
+            font-size: 0.83rem;
+            color: var(--sage);
+            font-weight: 500;
+        }
+        .project-card:hover .project-link { color: white; }
+
+        /* ─── EXPERIENCE ─── */
+        #experience {
+            padding: 7rem 3rem;
+            background: var(--bg);
+        }
+
+        .timeline { margin-top: 3rem; }
+
+        .tl-item {
+            display: grid;
+            grid-template-columns: 200px 1fr;
+            gap: 2.5rem;
+            padding: 2.25rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+        .tl-item:last-child { border-bottom: none; }
+
+        .tl-date {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--muted);
+            padding-top: 0.2rem;
+        }
+
+        .tl-role {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.3rem;
+        }
+
+        .tl-company {
+            font-size: 0.82rem;
+            color: var(--rose);
+            font-weight: 500;
+            margin-bottom: 0.875rem;
+        }
+
+        .tl-desc {
+            font-size: 0.875rem;
+            line-height: 1.8;
+            color: var(--muted);
+        }
+
+        /* ─── CONTACT ─── */
+        #contact {
+            padding: 8rem 3rem;
+            background: var(--dark);
+            text-align: center;
+        }
+
+        .contact-inner { max-width: 660px; margin: 0 auto; }
+
+        .contact-headline {
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(2.75rem, 5.5vw, 4.25rem);
+            font-weight: 800;
+            line-height: 1.05;
+            color: white;
+            letter-spacing: -0.04em;
+            margin-bottom: 1.5rem;
+        }
+        .contact-headline .sage { color: var(--sage); }
+
+        .contact-sub {
+            font-size: 1rem;
+            color: rgba(255,255,255,0.45);
+            line-height: 1.85;
+            margin-bottom: 2.75rem;
+            font-weight: 300;
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 0.875rem;
+            flex-wrap: wrap;
+        }
+
+        /* ─── FOOTER ─── */
+        footer {
+            background: var(--dark2);
+            padding: 1.5rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+        footer p { font-size: 0.77rem; color: rgba(255,255,255,0.2); }
+        .footer-fun {
+            font-size: 0.77rem;
+            color: rgba(255,255,255,0.18);
+            font-family: 'DM Sans', sans-serif;
+        }
+
+        /* ─── SCROLL REVEAL ─── */
+        .reveal {
+            opacity: 0;
+            transform: translateY(22px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+
+        /* ─── RESPONSIVE ─── */
+        @media (max-width: 780px) {
+            nav { padding: 1rem 1.5rem; }
+            .hero, #about, #work, #experience, #contact { padding: 5rem 1.5rem; }
+            footer { padding: 1.25rem 1.5rem; flex-direction: column; gap: 0.5rem; text-align: center; }
+            .about-intro { grid-template-columns: 1fr; gap: 2rem; }
+            .both-grid { grid-template-columns: 1fr; }
+            .projects-grid { grid-template-columns: 1fr; }
+            .project-card.featured { grid-column: 1; }
+            .tl-item { grid-template-columns: 1fr; gap: 0.5rem; }
+        }
+    </style>
 </head>
 <body>
 
-<header class="nav">
-  <a href="#top" class="wordmark">Briana Tran</a>
-  <nav class="nav-links">
-    <a href="#work">Work</a>
-    <a href="#about">About</a>
-    <a href="#contact">Contact</a>
-  </nav>
-</header>
+<!-- ─── NAV ─── -->
+<nav id="nav">
+    <a href="#top" class="nav-logo">bri 🐾</a>
+    <ul class="nav-links">
+        <li><a href="#work">work</a></li>
+        <li><a href="#about">about</a></li>
+        <li><a href="#experience">experience</a></li>
+        <li><a href="#contact">say hi</a></li>
+    </ul>
+</nav>
 
-<main id="top">
+<!-- ─── HERO ─── -->
+<div id="top"></div>
+<section class="hero">
+    <div class="hero-blob hero-blob-1"></div>
+    <div class="hero-blob hero-blob-2"></div>
 
-  <section class="hero">
-    <img src="assets/hamster.svg" alt="" class="accent accent-hamster-hero" aria-hidden="true">
-    <p class="eyebrow">AI Engineer &amp; Product Manager</p>
-    <h1>Hi, I'm Bri! <br>I build AI tools that actually ship.</h1>
-    <p class="hero-sub">I work at the intersection of AI engineering and financial services. At Citi, I own the roadmap and write the code, using LLMs and agentic tools daily to build faster and ship smarter.</p>
-    <a href="#work" class="btn">View my work</a>
-  </section>
+    <div class="hero-eyebrow">hi, i'm bri · solutions · product manager · developer · ai builder · professional animal lover</div>
 
-  <div class="divider"><span></span></div>
+    <h1 class="hero-headline">
+        Fluent in <span class="rose">customers.</span><br>
+        Fluent in <span class="sage">REST.</span>
+    </h1>
 
-  <section id="about" class="about">
-    <img src="assets/puppy.svg" alt="" class="accent accent-puppy-about" aria-hidden="true">
-    <div class="about-text">
-      <p class="section-label">About</p>
-      <h2>A little about how I work.</h2>
-      <p>I'm an AVP at Citi where I wear two hats: product manager and developer. I own the roadmap <em>and</em> write the code, which means I define the problem and build the solution myself — my favorite way to work!</p>
-      <p>My background in Cognitive and Behavioral Neuroscience shapes how I think about users and decision-making. My time across compliance, rewards, and platform engineering keeps me grounded in the regulatory realities most AI-first builders skip over. I think that combination is rare, and I'm leaning into it.</p>
-      <ul class="tags">
-        <li>AI Engineering</li>
-        <li>Product Management</li>
-        <li>LLM Applications</li>
-        <li>Fintech</li>
-        <li>Full-Stack Development</li>
-        <li>Behavioral Neuroscience</li>
-      </ul>
+    <p class="hero-sub">
+        I run discovery, scope integrations, and translate messy requirements into
+        things that actually ship, across engineering, finance, legal, and compliance
+        buyers. Then I go home to FaceTime my crusty little white dog.
+    </p>
+
+    <div class="hero-ctas">
+        <a href="#work" class="btn-primary">see my work</a>
+        <a href="#contact" class="btn-ghost">let's chat</a>
     </div>
-  </section>
 
-  <div class="divider"><span></span></div>
-
-  <section id="work" class="work">
-    <img src="assets/sloth.svg" alt="" class="accent accent-sloth-work" aria-hidden="true">
-    <p class="section-label">Selected Work</p>
-    <h2>A few recent projects.</h2>
-
-    <div class="work-grid">
-      <article class="project-card">
-        <p class="project-index">01</p>
-        <h3>Workflow Automation System</h3>
-        <p>Automated end-to-end delivery workflows at Citi, cutting manual steps and raising conversion rates by 32% — built and shipped without a handoff.</p>
-        <div class="project-tags"><span>Automation</span><span>Fintech</span></div>
-        <a href="#" class="project-link">View project →</a>
-      </article>
-
-      <article class="project-card">
-        <p class="project-index">02</p>
-        <h3>Enterprise Test Automation Framework</h3>
-        <p>Designed and built a Java-based testing framework for enterprise-scale financial systems, enabling faster releases with measurable quality coverage.</p>
-        <div class="project-tags"><span>Java</span><span>QA Engineering</span></div>
-        <a href="#" class="project-link">View project →</a>
-      </article>
-
-      <article class="project-card">
-        <p class="project-index">03</p>
-        <h3>Website CRO Audit Agent</h3>
-        <p>An AI-powered Conversion Rate Optimization tool that audits any landing page and returns a prioritized experiment backlog.</p>
-        <div class="project-tags"><span>Python</span><span>Conversion Rate Optimization</span></div>
-        <a href="https://github.com/brianatran01/cro-audit-agent" target="_blank" class="project-link">View project →</a>
-      </article>
+    <div class="hero-badges">
+        <span class="badge">event-driven systems</span>
+        <span class="badge">api integrations</span>
+        <span class="badge">llm engineering</span>
+        <span class="badge">technical discovery</span>
     </div>
-  </section>
+</section>
 
-  <div class="divider"><span></span></div>
-
-  <section class="toolkit">
-    <p class="section-label">Toolkit</p>
-    <p class="toolkit-list">Python &nbsp;·&nbsp; Java &nbsp;·&nbsp; LLMs &nbsp;·&nbsp; RAG &nbsp;·&nbsp; Agentic Frameworks &nbsp;·&nbsp; React &nbsp;·&nbsp; SQL &nbsp;·&nbsp; TypeScript</p>
-  </section>
-
-  <section id="contact" class="contact">
-    <img src="assets/hamster.svg" alt="" class="accent accent-hamster-contact" aria-hidden="true">
-    <p class="section-label">Contact</p>
-    <h2>Let's connect.</h2>
-    <p>I'm always open to conversations about AI in fintech, product + engineering roles, or just nerding out about where LLMs are headed.</p>
-    <a href="mailto:briana.tran01@outlook.com" class="btn btn-dark">briana.tran01@outlook.com</a>
-    <div class="socials">
-      <a href="https://www.linkedin.com/in/brianatran1/" target="_blank">LinkedIn</a>
-      <a href="https://github.com/brianatran01" target="_blank">GitHub</a>
+<!-- ─── TICKER ─── -->
+<div class="ticker">
+    <div class="ticker-track">
+        <span class="ticker-item"><span class="acc">·</span>Python</span>
+        <span class="ticker-item"><span class="acc">·</span>Claude API</span>
+        <span class="ticker-item"><span class="acc">·</span>SQL</span>
+        <span class="ticker-item"><span class="acc">·</span>Java</span>
+        <span class="ticker-item"><span class="acc">·</span>Event-driven architecture</span>
+        <span class="ticker-item"><span class="acc">·</span>Webhook design</span>
+        <span class="ticker-item"><span class="acc">·</span>Pydantic</span>
+        <span class="ticker-item"><span class="acc">·</span>Agentic tools</span>
+        <span class="ticker-item"><span class="acc">·</span>Jenkins CI/CD</span>
+        <span class="ticker-item"><span class="acc">·</span>Usage-based pricing</span>
+        <span class="ticker-item"><span class="acc">·</span>Tableau</span>
+        <span class="ticker-item"><span class="acc">·</span>LLM evaluation</span>
+        <span class="ticker-item"><span class="acc">·</span>RAG pipelines</span>
+        <span class="ticker-item"><span class="acc">·</span>Technical discovery</span>
+        <!-- duplicate -->
+        <span class="ticker-item"><span class="acc">·</span>Python</span>
+        <span class="ticker-item"><span class="acc">·</span>Claude API</span>
+        <span class="ticker-item"><span class="acc">·</span>SQL</span>
+        <span class="ticker-item"><span class="acc">·</span>Java</span>
+        <span class="ticker-item"><span class="acc">·</span>Event-driven architecture</span>
+        <span class="ticker-item"><span class="acc">·</span>Webhook design</span>
+        <span class="ticker-item"><span class="acc">·</span>Pydantic</span>
+        <span class="ticker-item"><span class="acc">·</span>Agentic tools</span>
+        <span class="ticker-item"><span class="acc">·</span>Jenkins CI/CD</span>
+        <span class="ticker-item"><span class="acc">·</span>Usage-based pricing</span>
+        <span class="ticker-item"><span class="acc">·</span>Tableau</span>
+        <span class="ticker-item"><span class="acc">·</span>LLM evaluation</span>
+        <span class="ticker-item"><span class="acc">·</span>RAG pipelines</span>
+        <span class="ticker-item"><span class="acc">·</span>Technical discovery</span>
     </div>
-  </section>
+</div>
 
-</main>
+<!-- ─── ABOUT ─── -->
+<section id="about">
+    <div class="section-inner">
+        <div class="about-intro">
+            <div>
+                <div class="section-label reveal">// what i bring</div>
+                <h2 class="section-headline reveal">
+                    I close the gap between<br>
+                    <em style="font-style:italic; color:var(--muted);">what you need</em> and
+                    <em style="font-style:italic; color:var(--muted);">what ships.</em>
+                </h2>
+                <p class="about-desc reveal">
+                    Customer-facing technical professional who <strong>runs discovery</strong>,
+                    <strong>scopes integrations</strong>, and translates complex requirements into
+                    execution. I've worked across engineering, finance, legal, and compliance buyers
+                    at a regulated bank and in zero-infrastructure startup environments.
+                    I build with LLMs every single day and I genuinely think that's the coolest
+                    thing in the world right now.
+                </p>
+            </div>
+            <div class="stat-group reveal">
+                <div class="stat-card">
+                    <div class="stat-num rose">3+</div>
+                    <div class="stat-text">years at Citi across rewards, compliance, and platform engineering (three very different lives)</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-num sage">17%</div>
+                    <div class="stat-text">reduction in remediation times after rolling out an AI compliance system across 2,000+ accounts</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-num warm">∞</div>
+                    <div class="stat-text">Legal/Risk/Compliance/Finance stakeholder reviews survived, and turns out I actually enjoy that part 🙃</div>
+                </div>
+            </div>
+        </div>
 
-<footer class="footer">
-  <img src="assets/puppy.svg" alt="" class="accent accent-puppy-footer" aria-hidden="true">
-  <p>&copy; 2026 Briana Tran. Made with care.</p>
+        <div class="both-grid">
+            <div class="both-card technical reveal">
+                <div class="card-label">technical side</div>
+                <h3>I build with the stack.</h3>
+                <p>APIs, webhooks, event schemas, LLM pipelines: I don't just scope integrations, I prototype them. I write the code, run the query, and structure the output. Agentic tooling, Pydantic, CI/CD, usage-based event instrumentation. All of it.</p>
+                <div class="tag-row">
+                    <span class="tag">Python</span>
+                    <span class="tag">Claude API</span>
+                    <span class="tag">Pydantic</span>
+                    <span class="tag">SQL</span>
+                    <span class="tag">Java</span>
+                    <span class="tag">Webhooks</span>
+                    <span class="tag">Event schemas</span>
+                    <span class="tag">CI/CD</span>
+                </div>
+            </div>
+            <div class="both-card customer reveal">
+                <div class="card-label">customer side</div>
+                <h3>I run real discovery.</h3>
+                <p>I've scoped requirements with Legal, Risk, Compliance, and Finance at a regulated bank, and with early-stage founders figuring it out as they go. I know how to find the real requirement hiding behind the stated one, and translate it into something engineering can actually ship.</p>
+                <div class="tag-row">
+                    <span class="tag">Technical discovery</span>
+                    <span class="tag">Stakeholder scoping</span>
+                    <span class="tag">Requirements translation</span>
+                    <span class="tag">Cross-functional delivery</span>
+                    <span class="tag">Pricing strategy</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="fun-note reveal">
+            My degree in <strong>Cognitive &amp; Behavioral Neuroscience</strong> isn't just a fun conversation starter at parties (though it is that too 🐾). It's genuinely how I think about users, decision-making, and why some integrations actually get adopted while others quietly collect dust. I went to UF, did three very different rotations at Citi, and have been building with LLMs every day since. Also I have a crusty little white dog who is my emotional support animal and my biggest fan.
+        </div>
+
+        <div class="dog-moment reveal">
+            <img src="dog.jpg" alt="the crusty white dog himself" />
+            <div class="dog-caption">the emotional support team 🐾</div>
+        </div>
+    </div>
+</section>
+
+<!-- ─── WORK ─── -->
+<section id="work">
+    <div class="section-inner">
+        <div class="section-label work-head-label reveal">// selected work</div>
+        <h2 class="section-headline work-head-h2 reveal">A few things I've built.</h2>
+
+        <div class="projects-grid">
+            <a href="#" class="project-card featured reveal">
+                <div class="featured-flag">★ featured · usage-based billing</div>
+                <h3>Gift Card Placement Personalization Engine</h3>
+                <p>
+                    A usage-based personalization engine that ingests customer transaction events, applies
+                    weighted scoring across spend, frequency, and recency dimensions, and generates structured
+                    placement strategies via Claude. I designed the event schema and billable metric logic
+                    across 6 customer segments, modeled directly after how Metronome customers instrument
+                    usage-based pricing decisions. Includes A/B test hypotheses and expected conversion lift per segment.
+                </p>
+                <div class="project-tags">
+                    <span class="project-tag">Python</span>
+                    <span class="project-tag">Claude API</span>
+                    <span class="project-tag">Pydantic</span>
+                    <span class="project-tag">Event-driven</span>
+                    <span class="project-tag">Billable metrics</span>
+                    <span class="project-tag">Usage-based pricing</span>
+                    <span class="project-tag">A/B testing</span>
+                </div>
+                <span class="project-link">view project →</span>
+            </a>
+
+            <a href="https://github.com/brianatran01/cro-audit-agent" target="_blank" class="project-card reveal">
+                <h3>CRO Audit Agent</h3>
+                <p>AI-powered tool that audits any landing page and returns a prioritized experiment backlog. Built independently using agentic tooling and structured output design. Yes, it audited its own landing page. Very meta.</p>
+                <div class="project-tags">
+                    <span class="project-tag">Python</span>
+                    <span class="project-tag">Agentic AI</span>
+                    <span class="project-tag">Structured outputs</span>
+                    <span class="project-tag">CRO</span>
+                </div>
+                <span class="project-link">view on GitHub →</span>
+            </a>
+
+            <a href="#" class="project-card reveal">
+                <h3>Enterprise Test Automation Framework</h3>
+                <p>Designed and shipped a Java/Cucumber/Selenium framework integrated with Jenkins CI/CD, eliminating manual regression execution across cross-functional engineering teams at Citi. Turns out I also just like building things that make people's lives less annoying.</p>
+                <div class="project-tags">
+                    <span class="project-tag">Java</span>
+                    <span class="project-tag">Selenium</span>
+                    <span class="project-tag">Cucumber</span>
+                    <span class="project-tag">Jenkins</span>
+                    <span class="project-tag">CI/CD</span>
+                </div>
+                <span class="project-link">read more →</span>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- ─── EXPERIENCE ─── -->
+<section id="experience">
+    <div class="section-inner">
+        <div class="section-label reveal">// where i've been</div>
+        <h2 class="section-headline reveal">The journey so far.</h2>
+
+        <div class="timeline">
+            <div class="tl-item reveal">
+                <div class="tl-date">Jul 2025 – Present</div>
+                <div>
+                    <div class="tl-role">AVP, Product Manager &amp; Digital Software Engineer</div>
+                    <div class="tl-company">Citi · Dallas, TX</div>
+                    <p class="tl-desc">Integrated LLM-powered automation into daily regression testing workflows. Navigate Legal, Risk, Compliance, and Finance stakeholder reviews on every platform feature shipped. SQL root cause analysis on platform metric drops, weekly executive reporting. Architected Java/Cucumber/Selenium CI/CD framework that eliminated manual test execution entirely.</p>
+                </div>
+            </div>
+
+            <div class="tl-item reveal">
+                <div class="tl-date">Jul 2024 – Jul 2025</div>
+                <div>
+                    <div class="tl-role">Safety &amp; Soundness Development Analyst</div>
+                    <div class="tl-company">Citi Technology Analyst Program · Dallas, TX</div>
+                    <p class="tl-desc">Led end-to-end implementation of an AI-driven compliance system in a high-stakes, ambiguous environment. Gathered requirements, configured the solution, monitored adoption, and resolved post-launch issues, cutting remediation times 17% across 2,000+ accounts. Scoped and authored Jira stories, acceptance criteria, and roadmap requirements for the A2C platform.</p>
+                </div>
+            </div>
+
+            <div class="tl-item reveal">
+                <div class="tl-date">Jul 2023 – Jul 2024</div>
+                <div>
+                    <div class="tl-role">Product Management Analyst, Rewards &amp; Benefits</div>
+                    <div class="tl-company">Citi Technology Analyst Program · Dallas, TX</div>
+                    <p class="tl-desc">Led consumer research for the Citi Strata Elite card launch: designed interview guides, ran sessions with real customers, translated qual findings into quantified product hypotheses. Partnered with Booking.com on Citi Travel integrations, scoping technical requirements and managing cross-org dependencies from discovery through launch.</p>
+                </div>
+            </div>
+
+            <div class="tl-item reveal">
+                <div class="tl-date">Ongoing</div>
+                <div>
+                    <div class="tl-role">GTM &amp; Operations Advisor</div>
+                    <div class="tl-company">Early Stage Consumer Goods Startup</div>
+                    <p class="tl-desc">Advising a pre-seed founder on go-to-market structure, pricing strategy, and early operational workflows. Running customer discovery interviews to surface real buyer needs and shape product positioning. Analyzed unit economics and recommended pricing structure that preserved margin across pack configurations while staying competitive against retail incumbents.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ─── CONTACT ─── -->
+<section id="contact">
+    <div class="contact-inner">
+        <div class="section-label reveal" style="color:rgba(255,255,255,0.25); text-align:center;">// let's work together</div>
+        <h2 class="contact-headline reveal">
+            Got a problem?<br>
+            <span class="sage">I'm into it.</span>
+        </h2>
+        <p class="contact-sub reveal">
+            Whether you're building usage-based billing infrastructure, need someone who can
+            demo it <em>and</em> scope it, or just want to talk about where AI + fintech is going,
+            please reach out. My crusty white dog and I are both very friendly. 🐶
+        </p>
+        <div class="contact-links reveal">
+            <a href="mailto:briana.tran01@outlook.com" class="btn-primary">briana.tran01@outlook.com</a>
+            <a href="https://www.linkedin.com/in/brianatran1/" target="_blank" class="btn-ghost">LinkedIn</a>
+            <a href="https://github.com/brianatran01" target="_blank" class="btn-ghost">GitHub</a>
+        </div>
+    </div>
+</section>
+
+<!-- ─── FOOTER ─── -->
+<footer>
+    <p>© 2026 Briana Tran</p>
+    <span class="footer-fun">made with love, caffeine & emotional support animals 🐾</span>
 </footer>
+
+<script>
+    // Sticky nav
+    const nav = document.getElementById('nav');
+    const updateNav = () => nav.classList.toggle('scrolled', window.scrollY > 60);
+    window.addEventListener('scroll', updateNav, { passive: true });
+    updateNav();
+
+    // Scroll reveal
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.08 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
 
 </body>
 </html>
